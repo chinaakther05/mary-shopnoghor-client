@@ -1,0 +1,88 @@
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { FcGoogle } from 'react-icons/fc';
+import useAuth from '../../../hooks/useAuth';
+
+const Login = () => {
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { signInUser, signInGoogle } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleLogin = async (data) => {
+    try {
+      const result = await signInUser(data.email, data.password);
+      console.log('User logged in:', result.user);
+      navigate(location.state?.from || '/'); // correct navigate usage
+    } catch (error) {
+      console.error('Login error:', error.message);
+      alert(error.message);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      const result = await signInGoogle();
+      console.log('Google user:', result.user);
+      navigate(location.state?.from || '/');
+    } catch (error) {
+      console.error('Google login error:', error.message);
+      alert(error.message);
+    }
+  };
+
+  return (
+    <div className="card mt-8 w-full max-w-sm mx-auto shadow-2xl dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+      <h3 className="text-3xl text-center mt-4">Welcome Back</h3>
+      <p className="text-center mb-4">Please login</p>
+
+      <form className="card-body" onSubmit={handleSubmit(handleLogin)}>
+        <label className="label">Email</label>
+        <input
+          type="email"
+          placeholder="Email"
+          className="input input-bordered w-full bg-white dark:bg-gray-700 dark:text-gray-100"
+          {...register('email', { required: true })}
+        />
+        {errors.email && <p className="text-red-500 text-sm">Email is required</p>}
+
+        <label className="label mt-2">Password</label>
+        <input
+          type="password"
+          placeholder="Password"
+          className="input input-bordered w-full bg-white dark:bg-gray-700 dark:text-gray-100"
+          {...register('password', { required: true, minLength: 6 })}
+        />
+        {errors.password?.type === 'required' && <p className="text-red-500 text-sm">Password is required</p>}
+        {errors.password?.type === 'minLength' && <p className="text-red-500 text-sm">Password must be at least 6 characters</p>}
+
+        <div className="mt-2">
+          <a className="link link-hover text-sm dark:text-gray-300">Forgot password?</a>
+        </div>
+
+        <button type="submit" className="btn btn-neutral w-full mt-4 dark:bg-green-600 dark:hover:bg-green-700 dark:text-white">
+          Login
+        </button>
+      </form>
+
+      <p className="text-center mt-4 text-sm dark:text-gray-300">
+        Don't have an account? 
+        <Link to="/register" state={location.state} className="text-blue-500 dark:text-blue-400 underline ml-1">
+          Register
+        </Link>
+      </p>
+
+      <div className="divider dark:before:bg-gray-600 dark:after:bg-gray-600">OR</div>
+
+      <button onClick={handleGoogleLogin}
+        className="btn btn-outline btn-primary font-bold text-black dark:text-white w-full mb-4"
+      >
+        <FcGoogle className="mr-2" />
+        Login with Google
+      </button>
+    </div>
+  );
+};
+
+export default Login;
