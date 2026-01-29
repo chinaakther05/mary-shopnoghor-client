@@ -4,13 +4,13 @@ import Footer from '../pages/shared/footer/Footer';
 import NavBar from '../pages/shared/Navbar/NavBar';
 
 const RootLayout = () => {
-    return (
-        <div className='max-w-7xl mx-auto'>
-            <NavBar></NavBar>
-            <Outlet></Outlet>
-            <Footer></Footer>
-        </div>
-    );
+  return (
+    <div className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+      <NavBar />
+      <Outlet />
+      <Footer />
+    </div>
+  );
 };
 
 export default RootLayout;
