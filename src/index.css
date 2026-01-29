@@ -45,3 +45,17 @@ body {
 .dark .custom-class {
   background-color: #1f2937;
 }
+
+/* image*/
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 25s linear infinite;
+}
