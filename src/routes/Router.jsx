@@ -5,6 +5,9 @@ import About from "../about/About";
 import AuthLayout from "../layouts/AuthLayout";
 import Login from "../pages/Auth/login/Login";
 import Register from "../pages/Auth/register/Register";
+import Products from "../product/Products";
+import ViewDetails from "../viewDetails/ViewDetails";
+import Contect from "../contect/Contect";
 
 export const router = createBrowserRouter([
   {
@@ -18,6 +21,17 @@ export const router = createBrowserRouter([
         {
             path:'about',
             Component: About
+        },
+        {
+          path:'products',
+          Component: Products
+        },
+         { path: "products/:productId", 
+          element: <ViewDetails /> 
+        },
+        {
+          path:'/contact',
+          Component: Contect
         }
     ]
   },

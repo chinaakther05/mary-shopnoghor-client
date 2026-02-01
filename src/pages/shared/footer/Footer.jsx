@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Logo from '../../../components/logo/Logo';
 
 const Footer = () => {
     return (
@@ -7,6 +8,7 @@ const Footer = () => {
             <div className="container mx-auto px-4">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                     <div>
+                        <Logo></Logo>
                         <h3 className="text-2xl font-bold text-emerald-400 dark:text-emerald-300 mb-4">মেরির স্বপ্নঘর</h3>
                         <p className="text-gray-400 dark:text-gray-300">
                             প্রকৃতির বিশুদ্ধতা আপনার দোরগোড়ায়
